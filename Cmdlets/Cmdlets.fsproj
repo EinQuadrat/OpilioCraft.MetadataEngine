@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+
+    <AssemblyName>OpilioCraft.MetadataEngine.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>OpilioCraft.MetadataEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+
+    <PackageId>OpilioCraft.MetadataEngine.Cmdlets</PackageId>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Description>Provides PowerShell cmdlets to work with metadata.</Description>
+    <Authors>Carsten Schäfer</Authors>
+    <Copyright>Copyright (c) 2023 by Carsten Schäfer</Copyright>
+    <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
+    <PackageTags>OpilioCraft;FSharp</PackageTags>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="StringTemplateHelper.fs" />
+    <Compile Include="Defaults.fs" />
+    <Compile Include="Common.fs" />
+    <Compile Include="Assert.fs" />
+    <Compile Include="FingerprintCommands.fs" />
+    <Compile Include="Get-ContentType.fs" />
+    <Compile Include="Get-Metadata.fs" />
+    <Compile Include="Get-ItemDetails.fs" />
+    <Compile Include="New-Filename.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpilioCraft.FSharp.PowerShell" Version="1.0.0" />
+    <PackageReference Include="OpilioCraft.StringTemplate" Version="1.1.0" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.fsproj" />
+    <ProjectReference Include="..\RulesExtension\RulesExtension.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="8.0.100" />
+  </ItemGroup>
+
+</Project>
