@@ -22,13 +22,16 @@
   <ItemGroup>
     <Compile Include="StringTemplateHelper.fs" />
     <Compile Include="Defaults.fs" />
-    <Compile Include="Common.fs" />
     <Compile Include="Assert.fs" />
     <Compile Include="FingerprintCommands.fs" />
-    <Compile Include="Get-ContentType.fs" />
+    <Compile Include="Set-MetadataEngine.fs" />
     <Compile Include="Get-Metadata.fs" />
-    <Compile Include="Get-ItemDetails.fs" />
+    <Compile Include="Get-ContentType.fs" />
+    <Compile Include="Get-ContentDetails.fs" />
     <Compile Include="New-Filename.fs" />
+    <Compile Include="LinkHelper.fs" />
+    <Compile Include="DigitalAssetCommands.fs" />
+    <Compile Include="Invoke-Rule.fs" />
   </ItemGroup>
 
   <ItemGroup>

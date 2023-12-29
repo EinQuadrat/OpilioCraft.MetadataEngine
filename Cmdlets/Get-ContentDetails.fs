@@ -10,7 +10,7 @@ open OpilioCraft.MetadataEngine.Core
 
 // ------------------------------------------------------------------------------------------------
 
-[<Cmdlet(VerbsCommon.Get, "ItemDetails")>]
+[<Cmdlet(VerbsCommon.Get, "ContentDetails")>]
 [<OutputType(typeof<ContentDetails>, typeof<Hashtable>)>]
 type public GetItemDetailsCommand () =
     inherit PathExpectingCommand ()

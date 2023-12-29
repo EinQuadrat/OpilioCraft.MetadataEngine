@@ -42,7 +42,9 @@ module RulesProvider =
 
     // --------------------------------------------------------------------------------------------
     
-    let private preloadRules rulesLocation : Map<string, Expression> =
+    let mutable private rules : Map<string, Expression> = Map.empty
+
+    let private loadRules rulesLocation =
         if Directory.Exists rulesLocation
         then
             Directory.EnumerateFiles(rulesLocation, "*.lisp")
@@ -52,9 +54,8 @@ module RulesProvider =
         else
             Map.empty
 
-    let private rules = preloadRules Settings.RulesLocation
-
-    // --------------------------------------------------------------------------------------------
+    let loadPredefinedRules () = rules <- loadRules Settings.RulesLocation
+    let reloadPredefinedRules = loadPredefinedRules
 
     let tryGetRule name =
         rules
@@ -63,6 +64,9 @@ module RulesProvider =
     let getRule name =
         tryGetRule name
         |> Option.defaultWith( fun _ -> raise <| UnknownRuleException(name) )
+
+    do
+        loadPredefinedRules ()
 
     // --------------------------------------------------------------------------------------------
     

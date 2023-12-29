@@ -152,6 +152,16 @@ type ExifTool() =
                 _exifHandler <- None
 
 module ExifToolHelper =
+    // helper
+    let private toUpperFirst (stringValue : string) =
+        if String.IsNullOrEmpty(stringValue)
+        then
+            String.Empty
+        else
+            let charArray = stringValue.ToCharArray() in
+            charArray[0] <- System.Char.ToUpper(charArray[0])
+            charArray |> String
+    
     // simplify dealing with Exif structure
     let asString = function | JsonValue.String x -> x | x -> x.ToString()
     let asTrimString = asString >> Text.trim
@@ -167,7 +177,7 @@ module ExifToolHelper =
             | _ -> Console.Error.WriteLine $"[ExifTool] value is not DateTime compatible: {jvalue.ToString()}"; None
 
     let tryExtractCamera (exif : ExifToolResult) : string option =
-        let maker : string option = exif.["EXIF:Make"] |> Option.map asTrimString // EXIF maker tag is named 'make'
+        let maker : string option = exif.["EXIF:Make"] |> Option.map asTrimString |> Option.map toUpperFirst // EXIF maker tag is named 'make'
         let model : string option = exif.["EXIF:Model"] |> Option.map asTrimString
 
         match maker, model with
