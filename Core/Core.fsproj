@@ -7,10 +7,10 @@
     <RootNamespace>OpilioCraft.MetadataEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 
     <PackageId>OpilioCraft.MetadataEngine.Core</PackageId>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Description>Provides functionality to work with metadata, e.g. can extract EXIF information.</Description>
     <Authors>Carsten Schäfer</Authors>
-    <Copyright>Copyright (c) 2023 by Carsten Schäfer</Copyright>
+    <Copyright>Copyright (c) 2023-2024 by Carsten Schäfer</Copyright>
     <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
     <PackageTags>OpilioCraft;FSharp</PackageTags>
 
@@ -28,12 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.Data.Json.Core" Version="6.3.0" />
+    <PackageReference Include="FSharp.Data.Json.Core" Version="6.4.0" />
     <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="5.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="8.0.100" />
+    <PackageReference Update="FSharp.Core" Version="8.0.300" />
   </ItemGroup>
 
 </Project>
