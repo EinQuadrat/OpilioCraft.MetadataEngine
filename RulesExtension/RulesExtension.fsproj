@@ -3,20 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
 
-    <AssemblyName>OpilioCraft.MetadataEngine.$(MSBuildProjectName)</AssemblyName>
-    <RootNamespace>OpilioCraft.MetadataEngine.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-
-    <PackageId>OpilioCraft.MetadataEngine.RulesAddon</PackageId>
-    <VersionPrefix>1.1.0</VersionPrefix>
     <Description>Addon to facilitate LISP rules for metadata operations.</Description>
-    <Authors>Carsten Schäfer</Authors>
-    <Copyright>Copyright (c) 2023-2024 by Carsten Schäfer</Copyright>
-    <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
-    <PackageTags>OpilioCraft;FSharp</PackageTags>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
 
   </PropertyGroup>
 
