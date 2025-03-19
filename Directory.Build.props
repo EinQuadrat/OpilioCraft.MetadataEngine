@@ -1,20 +1,30 @@
 ﻿<Project>
 
-    <PropertyGroup Label="UserMacros">
-        <SolutionId>OpilioCraft.MetadataEngine</SolutionId>
-    </PropertyGroup>
+  <PropertyGroup Label="UserMacros">
+    <SolutionId>OpilioCraft.MetadataEngine</SolutionId>
+  </PropertyGroup>
 
-    <PropertyGroup>
+  <PropertyGroup>
 
-        <VersionPrefix>1.1.0</VersionPrefix>
-        <Authors>Carsten Schäfer</Authors>
-        <Copyright>Copyright (c) 2023-2024 by Carsten Schäfer</Copyright>
-        <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
-        <PackageTags>OpilioCraft;MetadataEngine;FSharp</PackageTags>
+    <VersionPrefix>1.1.1</VersionPrefix>
+      
+    <Authors>Carsten Schäfer</Authors>
+    <Copyright>Copyright (c) 2023-2025 by Carsten Schäfer</Copyright>
+    <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
+    <PackageTags>OpilioCraft;MetadataEngine;FSharp</PackageTags>
 
-        <AssemblyName>$(SolutionId).$(MSBuildProjectName)</AssemblyName>
-        <RootNamespace>$(SolutionId).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>$(SolutionId).$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(SolutionId).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 
-    </PropertyGroup>
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+
+  </PropertyGroup>
 
 </Project>
