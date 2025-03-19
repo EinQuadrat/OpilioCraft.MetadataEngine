@@ -10,6 +10,8 @@ open OpilioCraft.Lisp
 open OpilioCraft.MetadataEngine.Core
 open OpilioCraft.MetadataEngine.RulesExtension
 
+// -------------------------------------------------------------------------------------------
+
 // represents status of rules engine
 type private RuleEvaluator =
     | NotInitialized
