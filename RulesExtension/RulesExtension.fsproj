@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft" Version="1.1.0" />
     <PackageReference Include="OpilioCraft.Lisp.Runtime" Version="1.2.1" />
   </ItemGroup>
 

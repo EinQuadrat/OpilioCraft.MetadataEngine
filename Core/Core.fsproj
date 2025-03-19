@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data.Json.Core" Version="6.6.0" />
+    <PackageReference Include="OpilioCraft" Version="1.0.0" />
     <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="7.1.0" />
   </ItemGroup>
 
