@@ -2,6 +2,8 @@
 
 open System
 
+// ------------------------------------------------------------------------------------------------
+
 [<RequireQualifiedAccess>]
 module Settings =
     let FrameworkVersion = Version(1, 0)
