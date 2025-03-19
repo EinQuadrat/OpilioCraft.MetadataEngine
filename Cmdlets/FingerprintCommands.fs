@@ -9,12 +9,6 @@ open OpilioCraft.FSharp.PowerShell
 
 // ------------------------------------------------------------------------------------------------
 
-[<RequireQualifiedAccess>]
-module private Defaults =
-    let FingerprintStrategy = Fingerprint.Strategy.GuessFirst
-
-// ------------------------------------------------------------------------------------------------
-
 [<Cmdlet(VerbsCommon.Get, "Fingerprint")>]
 [<OutputType(typeof<QualifiedFingerprint>, typeof<string>)>]
 type public GetFingerprintCommand () =
