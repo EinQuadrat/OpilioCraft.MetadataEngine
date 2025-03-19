@@ -1,0 +1,27 @@
+name: Build and Publish
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+      
+      - name: Install dependencies
+        run: dotnet restore
+      
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      
+      - name: Pack
+        run: dotnet pack --configuration Release --no-restore
+      
+      - name: Publish
+        run: dotnet nuget push **/*.nupkg -s 'https://nuget.pkg.github.com/EinQuadrat/index.json' -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
