@@ -5,11 +5,6 @@
 
     <Description>Provides functionality to work with metadata, e.g. can extract EXIF information.</Description>
 
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data.Json.Core" Version="6.6.0" />
-    <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="5.1.1" />
+    <PackageReference Include="OpilioCraft" Version="1.0.0" />
+    <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>

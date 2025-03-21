@@ -5,15 +5,9 @@
 
     <Description>Provides PowerShell cmdlets to work with metadata.</Description>
 
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="StringTemplateHelper.fs" />
     <Compile Include="Defaults.fs" />
     <Compile Include="Assert.fs" />
     <Compile Include="FingerprintCommands.fs" />
@@ -29,13 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft.FSharp.PowerShell" Version="1.0.1" />
-    <PackageReference Include="OpilioCraft.StringTemplate" Version="1.2.0" />
+    <PackageReference Include="OpilioCraft.FSharp.PowerShell" Version="2.0.0" />
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.fsproj" />
+    <ProjectReference Include="..\FileSystemExtensions\FilesystemExtensions.fsproj" />
     <ProjectReference Include="..\RulesExtension\RulesExtension.fsproj" />
   </ItemGroup>
 

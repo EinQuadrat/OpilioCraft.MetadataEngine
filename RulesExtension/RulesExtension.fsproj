@@ -5,12 +5,6 @@
 
     <Description>Addon to facilitate LISP rules for metadata operations.</Description>
 
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
-
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft.Lisp.Runtime" Version="1.2.0" />
+    <PackageReference Include="OpilioCraft.Lisp.Runtime" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>

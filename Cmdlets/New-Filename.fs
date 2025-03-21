@@ -7,6 +7,7 @@ open OpilioCraft.FSharp.Prelude
 open OpilioCraft.FSharp.PowerShell
 open OpilioCraft.FSharp.PowerShell.CmdletExtension
 open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine.FilesystemExtension
 open OpilioCraft.MetadataEngine.RulesExtension
 
 // ------------------------------------------------------------------------------------------------
@@ -31,7 +32,7 @@ type public NewFilenameCommand () =
         base.BeginProcessing()
 
         try
-            applyPattern <- StringTemplateHelper.FilenameCreator.Initialize(x.Template).Apply
+            applyPattern <- FilenameCreator.Initialize(x.Template).Apply
             x.WriteVerbose($"Used filename template: {x.Template}")
         with
             | exn -> exn |> x.WriteAsError ErrorCategory.NotSpecified

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+
+    <Description>Additional filesystem related metadata functions.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="FilenameCreator.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpilioCraft.StringTemplate" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.fsproj" />
+  </ItemGroup>
+
+</Project>
