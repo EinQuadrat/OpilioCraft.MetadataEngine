@@ -1,4 +1,4 @@
-﻿module OpilioCraft.MetadataEngine.Core.ContentDetailHelper
+﻿module OpilioCraft.MetadataEngine.ContentDetailHelper
 
 open OpilioCraft.FSharp.Prelude
 

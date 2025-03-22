@@ -7,7 +7,7 @@ open OpilioCraft.FSharp.Prelude
 open OpilioCraft.FSharp.PowerShell.CmdletExtension
 open OpilioCraft.Lisp
 
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 open OpilioCraft.MetadataEngine.RulesExtension
 
 // -------------------------------------------------------------------------------------------

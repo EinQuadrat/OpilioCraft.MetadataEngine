@@ -1,6 +1,6 @@
 ﻿module OpilioCraft.MetadataEngine.RulesExtension.PredefinedRules
 
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 open OpilioCraft.FSharp.Prelude
 
 let tryDetermineDateTaken (metadata : Metadata) : System.DateTime option =

@@ -4,7 +4,7 @@ open System
 open System.Globalization
 
 open OpilioCraft.FSharp.Prelude
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 open OpilioCraft.StringTemplate
 
 module private FilenameCreatorLib =

@@ -6,7 +6,7 @@ open System.Management.Automation
 open System.Text.RegularExpressions
 
 open OpilioCraft.FSharp.PowerShell
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 
 // ------------------------------------------------------------------------------------------------
 

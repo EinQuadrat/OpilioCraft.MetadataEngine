@@ -5,6 +5,9 @@
 
     <Description>Provides functionality to work with metadata, e.g. can extract EXIF information.</Description>
 
+    <AssemblyName>$(SolutionId)</AssemblyName>
+    <RootNamespace>$(SolutionId)</RootNamespace>
+
   </PropertyGroup>
 
   <ItemGroup>

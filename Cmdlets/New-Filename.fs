@@ -6,7 +6,7 @@ open System.Management.Automation
 open OpilioCraft.FSharp.Prelude
 open OpilioCraft.FSharp.PowerShell
 open OpilioCraft.FSharp.PowerShell.CmdletExtension
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 open OpilioCraft.MetadataEngine.FilesystemExtension
 open OpilioCraft.MetadataEngine.RulesExtension
 

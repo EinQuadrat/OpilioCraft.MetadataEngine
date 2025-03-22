@@ -3,7 +3,7 @@
 open System.Management.Automation
 
 open OpilioCraft.FSharp.PowerShell
-open OpilioCraft.MetadataEngine.Core
+open OpilioCraft.MetadataEngine
 
 // ------------------------------------------------------------------------------------------------
 

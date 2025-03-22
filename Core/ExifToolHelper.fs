@@ -1,4 +1,4 @@
-﻿namespace OpilioCraft.MetadataEngine.Core
+﻿namespace OpilioCraft.MetadataEngine
 
 // system
 open System
