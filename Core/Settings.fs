@@ -8,10 +8,6 @@ open System
 module Settings =
     let FrameworkVersion = Version(1, 0)
 
-    // location of runtime; e.g. for side-by-side apps
-    let AssemblyLocation = Uri(Reflection.Assembly.GetExecutingAssembly().Location).LocalPath
-    let RuntimeBase = IO.Path.GetDirectoryName(AssemblyLocation)
-
 // ------------------------------------------------------------------------------------------------
 
 [<RequireQualifiedAccess>]
