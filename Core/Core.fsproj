@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
 
     <Description>Provides functionality to work with metadata, e.g. can extract EXIF information.</Description>
+    <VersionPrefix>2.0.1</VersionPrefix>
 
     <AssemblyName>$(SolutionId)</AssemblyName>
     <RootNamespace>$(SolutionId)</RootNamespace>
