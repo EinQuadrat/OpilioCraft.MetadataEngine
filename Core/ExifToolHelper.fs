@@ -54,7 +54,7 @@ module internal ExifTool =
             psi.RedirectStandardOutput <- true
             psi.RedirectStandardError <- true
             psi.UseShellExecute <- false
-            psi.CreateNoWindow <- true
+            psi.WindowStyle <- ProcessWindowStyle.Hidden
 
             // async error handler
             let exifErrorHandler (_ : obj) (errLine : DataReceivedEventArgs) : unit =
