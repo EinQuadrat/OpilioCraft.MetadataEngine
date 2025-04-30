@@ -40,8 +40,12 @@ module internal ExifTool =
     let assembly = typeof<ExifToolCommand>.Assembly
     let assemblyPath = if not <| String.IsNullOrEmpty(assembly.Location) then Path.GetDirectoryName(assembly.Location) else AppContext.BaseDirectory
     let exifExecutable = Path.Combine(assemblyPath, "exiftool.exe")
-    //Console.WriteLine $"[ExifTool] exiftool executable: {exifExecutable}"
-    let exifArgsFile = Path.Combine(Path.GetTempPath(), $"exiftool_{Environment.ProcessId}_args.txt")
+
+#if DEBUG
+    Console.WriteLine $"[ExifTool] exiftool executable: {exifExecutable}"
+#endif
+
+    let exifArgsFile = Path.Combine(Path.GetTempPath(), $"""exiftool_{Environment.ProcessId}_{Guid.NewGuid().ToString("N")}_args.txt""")
 
     do
         if not <| File.Exists exifExecutable then failwith "[ExifTool] exiftool executable is not accessible"
