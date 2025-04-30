@@ -45,7 +45,8 @@ module internal ExifTool =
     Console.WriteLine $"[ExifTool] exiftool executable: {exifExecutable}"
 #endif
 
-    let exifArgsFile = Path.Combine(Path.GetTempPath(), $"""exiftool_{Environment.ProcessId}_{Guid.NewGuid().ToString("N")}_args.txt""")
+    let guid = Guid.NewGuid().ToString("N")
+    let exifArgsFile = Path.Combine(Path.GetTempPath(), $"""exiftool_{Environment.ProcessId}_{guid}_args.txt""")
 
     do
         if not <| File.Exists exifExecutable then failwith "[ExifTool] exiftool executable is not accessible"
