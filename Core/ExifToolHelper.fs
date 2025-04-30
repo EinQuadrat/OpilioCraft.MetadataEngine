@@ -37,8 +37,10 @@ type ExifToolCommand =
     | Quit
 
 module internal ExifTool =
-    let exifExecutable = Path.Combine(AppContext.BaseDirectory, "exiftool.exe")
-    Console.WriteLine $"[ExifTool] exiftool executable: {exifExecutable}"
+    let assembly = typeof<ExifToolCommand>.Assembly
+    let assemblyPath = if not <| String.IsNullOrEmpty(assembly.Location) then Path.GetDirectoryName(assembly.Location) else AppContext.BaseDirectory
+    let exifExecutable = Path.Combine(assemblyPath, "exiftool.exe")
+    //Console.WriteLine $"[ExifTool] exiftool executable: {exifExecutable}"
     let exifArgsFile = Path.Combine(Path.GetTempPath(), $"exiftool_{Environment.ProcessId}_args.txt")
 
     do
