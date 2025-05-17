@@ -13,8 +13,8 @@ open OpilioCraft.MetadataEngine.RulesExtension
 // ------------------------------------------------------------------------------------------------
 
 [<AbstractClass>]
-type public DigitalAssetCommand () =
-    inherit PathExpectingCommand ()
+type public DigitalAssetCommand() =
+    inherit PathExpectingCommand()
 
     // filename creator
     let mutable applyPattern : Metadata -> string = fun metadata -> metadata.Details["Filename"].AsString
@@ -41,9 +41,9 @@ type public DigitalAssetCommand () =
             applyPattern <- FilenameCreator.Initialize(x.Template).Apply
             x.WriteVerbose($"Used filename template: {x.Template}")
         with
-            | exn -> exn |> x.WriteAsError ErrorCategory.NotSpecified
+            | exn -> x.WriteAsError(ErrorCategory.NotSpecified, exn)
 
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         // get metadata
         let metadata =
             MetadataEngine.extractMetadata path
@@ -90,50 +90,50 @@ type public DigitalAssetCommand () =
 
 [<Cmdlet(VerbsCommon.Rename, "DigitalAsset")>]
 [<OutputType(typeof<unit>)>]
-type public RenameDigitalAssetCommand () =
-    inherit DigitalAssetCommand ()
+type public RenameDigitalAssetCommand() =
+    inherit DigitalAssetCommand()
 
     override _.ActionName = "rename"
     override _.ItemAction(sourcePath, targetPath, overwrite) =
         let targetPath = IO.Path.Combine(IO.Path.GetDirectoryName(sourcePath), targetPath)
         IO.File.Copy(sourcePath, targetPath, overwrite)
 
-    override _.TargetPath sourcePath = IO.Path.GetDirectoryName(sourcePath)
+    override _.TargetPath(sourcePath) = IO.Path.GetDirectoryName(sourcePath)
 
 // ------------------------------------------------------------------------------------------------
 
 [<Cmdlet(VerbsCommon.Move, "DigitalAsset")>]
 [<OutputType(typeof<unit>)>]
-type public MoveDigitalAssetCommand () =
-    inherit DigitalAssetCommand ()
+type public MoveDigitalAssetCommand() =
+    inherit DigitalAssetCommand()
 
     [<Parameter>]
     member val TargetDir = String.Empty with get,set
 
     override _.ActionName = "move"
     override _.ItemAction(sourcePath, targetPath, overwrite) = IO.File.Move(sourcePath, targetPath, overwrite)
-    override x.TargetPath _ = x.TargetDir
+    override x.TargetPath(_) = x.TargetDir
 
 // ------------------------------------------------------------------------------------------------
 
 [<Cmdlet(VerbsCommon.Copy, "DigitalAsset")>]
 [<OutputType(typeof<unit>)>]
-type public CopyDigitalAssetCommand () =
-    inherit DigitalAssetCommand ()
+type public CopyDigitalAssetCommand() =
+    inherit DigitalAssetCommand()
 
     [<Parameter>]
     member val TargetDir = String.Empty with get,set
 
     override _.ActionName = "copy"
     override _.ItemAction(sourcePath, targetPath, overwrite) = IO.File.Copy(sourcePath, targetPath, overwrite)
-    override x.TargetPath _ = x.TargetDir
+    override x.TargetPath(_) = x.TargetDir
 
 // ------------------------------------------------------------------------------------------------
 
 [<Cmdlet(VerbsCommon.New, "DigitalAssetLink")>]
 [<OutputType(typeof<unit>)>]
-type public LinkDigitalAssetCommand () =
-    inherit DigitalAssetCommand ()
+type public LinkDigitalAssetCommand() =
+    inherit DigitalAssetCommand()
 
     // parameters
     [<Parameter>]
@@ -152,4 +152,4 @@ type public LinkDigitalAssetCommand () =
         | "Symbolic" -> LinkHelper.createSymbolicLink sourcePath targetPath
         | _ -> failwith "unsupported link type"
 
-    override x.TargetPath _ = x.TargetDir
+    override x.TargetPath(_) = x.TargetDir

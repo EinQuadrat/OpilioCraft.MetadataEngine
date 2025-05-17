@@ -9,8 +9,8 @@ open OpilioCraft.MetadataEngine.RulesExtension
 
 [<Cmdlet(VerbsCommon.Set, "MetadataEngine", DefaultParameterSetName="Configure")>]
 [<OutputType(typeof<unit>)>]
-type public SetMetadataEngineCommand () =
-    inherit PSCmdlet ()
+type public SetMetadataEngineCommand() =
+    inherit PSCmdlet()
 
     // parameters
     [<Parameter(ParameterSetName="Initialize")>]

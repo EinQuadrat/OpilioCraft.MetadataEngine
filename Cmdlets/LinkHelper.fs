@@ -8,8 +8,8 @@ open System.Runtime.InteropServices
 extern bool CreateHardLink(string lpFileName, string lpExistingFileName, IntPtr lpSecurityAttributes);
 
 // link creation
-let createHardLink (existingPath : string) (newPath : string) =
+let createHardLink (existingPath: string) (newPath: string) =
     CreateHardLink(newPath, existingPath, IntPtr.Zero) |> ignore
 
-let createSymbolicLink (existingPath : string) (newPath : string) =
+let createSymbolicLink (existingPath: string) (newPath: string) =
     IO.File.CreateSymbolicLink(newPath, existingPath) |> ignore

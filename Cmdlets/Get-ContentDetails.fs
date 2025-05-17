@@ -12,8 +12,8 @@ open OpilioCraft.MetadataEngine
 
 [<Cmdlet(VerbsCommon.Get, "ContentDetails")>]
 [<OutputType(typeof<ContentDetails>, typeof<Hashtable>)>]
-type public GetItemDetailsCommand () =
-    inherit PathExpectingCommand ()
+type public GetItemDetailsCommand() =
+    inherit PathExpectingCommand()
 
     // predicate used for filtering details
     let mutable predicate : (string -> bool) = fun _ -> true
@@ -33,7 +33,7 @@ type public GetItemDetailsCommand () =
         base.BeginProcessing()
 
         // any filter specified?
-        if not <| String.IsNullOrEmpty x.Name
+        if not <| String.IsNullOrEmpty(x.Name)
         then
             if x.ExactMatch.IsPresent
             then
@@ -42,7 +42,7 @@ type public GetItemDetailsCommand () =
                 let compiledRegex = Regex(x.Name, RegexOptions.Compiled) in
                 predicate <- fun key -> compiledRegex.IsMatch(key)
 
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         path
         |> MetadataEngine.extractMetadata
         |> fun metadata -> metadata.Details

@@ -11,11 +11,11 @@ open OpilioCraft.MetadataEngine.RulesExtension
 
 [<Cmdlet(VerbsDiagnostic.Repair, "FileDate")>]
 [<OutputType(typeof<unit>)>]
-type public RepairFileDateCommand () =
-    inherit PathExpectingCommand ()
+type public RepairFileDateCommand() =
+    inherit PathExpectingCommand()
 
     // cmdlet behaviour
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         // get metadata
         let metadata =
             MetadataEngine.extractMetadata path

@@ -10,11 +10,11 @@ open OpilioCraft.MetadataEngine
 
 [<Cmdlet(VerbsCommon.Get, "ContentType")>]
 [<OutputType(typeof<ContentType>)>]
-type public GetContentTypeCommand () =
-    inherit PathExpectingCommand ()
+type public GetContentTypeCommand() =
+    inherit PathExpectingCommand()
 
     // cmdlet behaviour
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         path
         |> FileInfo
         |> MetadataEngine.determineContentType

@@ -11,8 +11,8 @@ open OpilioCraft.FSharp.PowerShell
 
 [<Cmdlet(VerbsCommon.Get, "Fingerprint")>]
 [<OutputType(typeof<QualifiedFingerprint>, typeof<string>)>]
-type public GetFingerprintCommand () =
-    inherit PathExpectingCommand ()
+type public GetFingerprintCommand() =
+    inherit PathExpectingCommand()
 
     // strategy to determine fingerprints
     member val FingerprintStrategy = Defaults.FingerprintStrategy with get, set        
@@ -26,28 +26,28 @@ type public GetFingerprintCommand () =
     member val AsString = SwitchParameter(false) with get, set
 
     // validations
-    override x.BeginProcessing () =
-        base.BeginProcessing ()
+    override x.BeginProcessing() =
+        base.BeginProcessing()
 
         // validate specified fingerprint strategy
         x.FingerprintStrategy <- x.Strategy |> Assert.isValidFingerprintStrategy
 
     // cmdlet behaviour
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         let qualifiedFingerprint = path |> Fingerprint.getFingerprint x.FingerprintStrategy in
         
         if x.AsString.IsPresent
         then
-                x.WriteObject <| qualifiedFingerprint.Value
+                x.WriteObject(qualifiedFingerprint.Value)
         else
-                x.WriteObject <| qualifiedFingerprint
+                x.WriteObject(qualifiedFingerprint)
 
 // ------------------------------------------------------------------------------------------------
 
 [<Cmdlet(VerbsDiagnostic.Test, "Fingerprint")>]
 [<OutputType(typeof<bool>, typeof<DetailedResult>)>]
-type public TestFingerprintCommand () =
-    inherit PathExpectingCommand ()
+type public TestFingerprintCommand() =
+    inherit PathExpectingCommand()
 
     [<Parameter()>]
     member val IgnoreMissing = SwitchParameter(false) with get, set
@@ -56,18 +56,18 @@ type public TestFingerprintCommand () =
     member val Detailed = SwitchParameter(false) with get, set
 
     // cmdlet behaviour
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         let testResult =
             match Fingerprint.tryGuessFingerprint path with
-            | Some fingerprint                      -> fingerprint = (Fingerprint.fingerprintAsString path)
-            | None when x.IgnoreMissing.IsPresent   -> true
-            | None                                  -> x.WriteWarning $"Path does not contain a fingerprint: {path}"; false
+            | Some(fingerprint) -> fingerprint = (Fingerprint.fingerprintAsString path)
+            | None when x.IgnoreMissing.IsPresent -> true
+            | None -> x.WriteWarning($"Path does not contain a fingerprint: {path}"); false
 
         if x.Detailed.IsPresent
         then
-            x.WriteObject <| { Path = path; TestResult = testResult }
+            x.WriteObject({ Path = path; TestResult = testResult })
         else
-            x.WriteObject <| testResult
+            x.WriteObject(testResult)
 
 and DetailedResult =
     {
@@ -79,11 +79,11 @@ and DetailedResult =
 
 [<Cmdlet(VerbsData.Update, "Fingerprint")>]
 [<OutputType(typeof<Void>)>]
-type public UpdateFingerprintCommand () =
-    inherit PathExpectingCommand () // disable support for fingerprint strategy
+type public UpdateFingerprintCommand() =
+    inherit PathExpectingCommand() // disable support for fingerprint strategy
 
     // cmdlet behaviour
-    override _.ProcessPath path =
+    override _.ProcessPath(path) =
         let fingerprint = path |> Fingerprint.fingerprintAsString
         let augmentedPath = IO.Path.InjectFingerprint(path, fingerprint)
 
@@ -95,11 +95,11 @@ type public UpdateFingerprintCommand () =
 
 [<Cmdlet(VerbsCommon.Remove, "Fingerprint")>]
 [<OutputType(typeof<Void>)>]
-type public RemoveFingerprintCommand () =
-    inherit PathExpectingCommand () // disable support for fingerprint strategy
+type public RemoveFingerprintCommand() =
+    inherit PathExpectingCommand() // disable support for fingerprint strategy
 
     // cmdlet behaviour
-    override _.ProcessPath path =
+    override _.ProcessPath(path) =
         let directory = IO.Path.GetDirectoryName(path)
         let plainFilename = IO.Path.GetFilenameWithoutFingerprint(path)
         let extension = IO.Path.GetExtension(path)

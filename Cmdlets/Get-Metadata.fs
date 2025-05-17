@@ -9,11 +9,11 @@ open OpilioCraft.MetadataEngine
 
 [<Cmdlet(VerbsCommon.Get, "Metadata")>]
 [<OutputType(typeof<Metadata>)>]
-type public GetMetadataCommand () =
-    inherit PathExpectingCommand ()
+type public GetMetadataCommand() =
+    inherit PathExpectingCommand()
 
     // cmdlet funtionality
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         path
         |> MetadataEngine.extractMetadata
         |> x.WriteObject

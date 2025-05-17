@@ -14,8 +14,8 @@ open OpilioCraft.MetadataEngine.RulesExtension
 
 [<Cmdlet(VerbsCommon.New, "Filename")>]
 [<OutputType(typeof<string>)>]
-type public NewFilenameCommand () =
-    inherit PathExpectingCommand ()
+type public NewFilenameCommand() =
+    inherit PathExpectingCommand()
 
     // filename creator
     let mutable applyPattern : Metadata -> string = fun metadata -> metadata.Details["Filename"].AsString
@@ -35,9 +35,9 @@ type public NewFilenameCommand () =
             applyPattern <- FilenameCreator.Initialize(x.Template).Apply
             x.WriteVerbose($"Used filename template: {x.Template}")
         with
-            | exn -> exn |> x.WriteAsError ErrorCategory.NotSpecified
+            | exn -> x.WriteAsError(ErrorCategory.NotSpecified, exn)
 
-    override x.ProcessPath path =
+    override x.ProcessPath(path) =
         // get metadata
         let metadata =
             MetadataEngine.extractMetadata path

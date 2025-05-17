@@ -20,8 +20,8 @@ type private RuleEvaluator =
 // cmdlet
 [<Cmdlet(VerbsLifecycle.Invoke, "Rule", DefaultParameterSetName="PredefinedRule")>]
 [<OutputType(typeof<FlexibleValue>, typeof<String>)>]
-type public InvokeItemRuleCommand () =
-    inherit PSCmdlet ()
+type public InvokeItemRuleCommand() =
+    inherit PSCmdlet()
 
     // rule
     let mutable ruleEvaluator = NotInitialized
@@ -46,8 +46,8 @@ type public InvokeItemRuleCommand () =
     member val DefaultValue = "NA" with get,set
 
     // cmdlet funtionality
-    override x.BeginProcessing () =
-        base.BeginProcessing ()
+    override x.BeginProcessing() =
+        base.BeginProcessing()
 
         try
             let lispRuntime = LispRuntime.Initialize().InjectResultHook(ContentDetailHelper.unwrapContentDetail)
@@ -61,7 +61,7 @@ type public InvokeItemRuleCommand () =
                 | "CustomRule" ->
                     let lispRuntime = LispRuntime.Initialize().InjectResultHook(ContentDetailHelper.unwrapContentDetail) in
 
-                    lispRuntime.TryParse x.Rule
+                    lispRuntime.TryParse(x.Rule)
                     |> Option.defaultWith (fun _ -> failwith $"cannot compile rule {x.Rule}")
                 
                 | _ -> failwith "[FATAL] unexpected ParameterSetName"
@@ -74,7 +74,7 @@ type public InvokeItemRuleCommand () =
                 )
 
         with
-            | exn -> exn |> x.ThrowAsTerminatingError ErrorCategory.ResourceUnavailable
+            | exn -> x.ThrowAsTerminatingError(ErrorCategory.ResourceUnavailable, exn)
 
     override x.ProcessRecord() =
         base.ProcessRecord()
@@ -98,4 +98,4 @@ type public InvokeItemRuleCommand () =
                 result |> x.WriteObject
 
         with
-            | exn -> exn |> x.WriteAsError ErrorCategory.NotSpecified
+            | exn -> x.WriteAsError(ErrorCategory.NotSpecified, exn)
