@@ -3,7 +3,7 @@
 open System
 open System.Globalization
 
-open OpilioCraft.FSharp.Prelude
+open OpilioCraft.FSharp.FlexibleValues
 open OpilioCraft.MetadataEngine
 open OpilioCraft.StringTemplate
 
@@ -13,13 +13,13 @@ module private FilenameCreatorLib =
     let DefaultDateTimeFormat = "yyyyMMddTHHmmss"
 
     // details helper
-    let private tryGetDetail key (metadata : Metadata) =
+    let private tryGetDetail key (metadata: Metadata) =
         metadata.Details.TryGetValue(key)
         |> function
             | true, v    -> Some v
             | false, _   -> None
 
-    let private determineDateTaken (metadata : Metadata) : DateTime =
+    let private determineDateTaken (metadata: Metadata) : DateTime =
         if metadata.Details.ContainsKey(Slot.DateTaken)
         then
             metadata.Details[Slot.DateTaken].AsDateTime
@@ -31,7 +31,7 @@ module private FilenameCreatorLib =
         textInfo.ToTitleCase(value)
 
     // data provider
-    let getDateTaken (metadata : Metadata) (args : string list) : string =
+    let getDateTaken (metadata: Metadata) (args: string list) : string =
         let (format, timezone) =
             match args with
             | [ format ; timezoneId ] -> format, TimeZoneInfo.FindSystemTimeZoneById(timezoneId)
@@ -41,7 +41,7 @@ module private FilenameCreatorLib =
 
         TimeZoneInfo.ConvertTimeFromUtc(metadata |> determineDateTaken, timezone).ToString(format)
 
-    let getDateTakenUTC (metadata : Metadata) (args : string list) : string =
+    let getDateTakenUTC (metadata: Metadata) (args: string list) : string =
         let format =
             match args with
             | format :: _ -> format
@@ -49,32 +49,32 @@ module private FilenameCreatorLib =
 
         (metadata |> determineDateTaken).ToString(format)
 
-    let getCamera (metadata : Metadata) (args : string list) : string =
+    let getCamera (metadata: Metadata) (args: string list) : string =
         metadata
         |> tryGetDetail Slot.Camera
         |> Option.bind (function | FlexibleValue.String camera -> camera |> Some | _ -> None)
         |> Option.map (fun camera -> match args with | "TitleCase" :: tail -> toTitleCase camera | _ -> camera)
         |> Option.defaultValue "NA"
 
-    let getSeqNo (metadata : Metadata) _ : string =
+    let getSeqNo (metadata: Metadata) _ : string =
         metadata
         |> tryGetDetail Slot.SequenceNo
         |> Option.bind (function | FlexibleValue.Numeral seqNo -> seqNo.ToString() |> Some | _ -> None)
         |> Option.defaultValue ""
 
-    let getSubSec (metadata : Metadata) _ : string =
+    let getSubSec (metadata: Metadata) _ : string =
         metadata
         |> tryGetDetail Slot.SubSeconds
         |> Option.bind (function | FlexibleValue.Numeral seqNo -> seqNo.ToString() |> Some | _ -> None)
         |> Option.defaultValue ""
 
-    let getOwner (metadata : Metadata) _ : string =
+    let getOwner (metadata: Metadata) _ : string =
         metadata
         |> tryGetDetail Slot.Owner
         |> Option.bind (function | FlexibleValue.String owner -> owner |> Some | _ -> None)
         |> Option.defaultValue "NA"
 
-    let getDateExtension (metadata : Metadata) (args : string list) =
+    let getDateExtension (metadata: Metadata) (args: string list) =
         let separator =
             match args with
             | sep :: _ -> sep
@@ -89,7 +89,7 @@ module private FilenameCreatorLib =
         |> Option.map (fun value -> $"{separator}{value}")
         |> Option.defaultValue ""
 
-    let getFilename (metadata : Metadata) _ : string =
+    let getFilename (metadata: Metadata) _ : string =
         metadata
         |> tryGetDetail "Filename"
         |> Option.bind (function | FlexibleValue.String value -> value |> Some | _ -> None)
@@ -118,14 +118,14 @@ module private FilenameCreatorLib =
                 "id", getFingerprint
             ]
 
-type FilenameCreator ( stringTemplate : StringTemplate ) =
-    member _.Apply (metadata : Metadata) : string =
+type FilenameCreator(stringTemplate: StringTemplate) =
+    member _.Apply(metadata: Metadata) : string =
         let placeholderMap =
             FilenameCreatorLib.genericPlaceholderMap
-            |> Map.map (fun _ (body : Metadata -> string list -> string) -> body metadata)
+            |> Map.map (fun _ (body: Metadata -> string list -> string) -> body metadata)
 
-        Runtime.EvalRelaxed placeholderMap stringTemplate
+        Runtime.EvalRelaxed(placeholderMap, stringTemplate)
 
-    static member Initialize ( namePattern : string ) =
+    static member Initialize(namePattern: string) =
         let stringTemplate = Runtime.Parse namePattern in
         new FilenameCreator(stringTemplate)

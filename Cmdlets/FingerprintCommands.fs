@@ -3,8 +3,8 @@
 open System
 open System.Management.Automation
 
-open OpilioCraft.FSharp.Prelude
-open OpilioCraft.FSharp.Prelude.FingerprintExtension
+open OpilioCraft.FSharp.Fingerprint
+open OpilioCraft.FSharp.FingerprintExtension
 open OpilioCraft.FSharp.PowerShell
 
 // ------------------------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ type public GetFingerprintCommand() =
 
     // cmdlet behaviour
     override x.ProcessPath(path) =
-        let qualifiedFingerprint = path |> Fingerprint.getFingerprint x.FingerprintStrategy in
+        let qualifiedFingerprint = path |> getFingerprint x.FingerprintStrategy in
         
         if x.AsString.IsPresent
         then
@@ -58,8 +58,8 @@ type public TestFingerprintCommand() =
     // cmdlet behaviour
     override x.ProcessPath(path) =
         let testResult =
-            match Fingerprint.tryGuessFingerprint path with
-            | Some(fingerprint) -> fingerprint = (Fingerprint.fingerprintAsString path)
+            match tryGuessFingerprint path with
+            | Some(fingerprint) -> fingerprint = (fingerprintAsString path)
             | None when x.IgnoreMissing.IsPresent -> true
             | None -> x.WriteWarning($"Path does not contain a fingerprint: {path}"); false
 
@@ -84,7 +84,7 @@ type public UpdateFingerprintCommand() =
 
     // cmdlet behaviour
     override _.ProcessPath(path) =
-        let fingerprint = path |> Fingerprint.fingerprintAsString
+        let fingerprint = path |> fingerprintAsString
         let augmentedPath = IO.Path.InjectFingerprint(path, fingerprint)
 
         if not <| path.Equals(augmentedPath)

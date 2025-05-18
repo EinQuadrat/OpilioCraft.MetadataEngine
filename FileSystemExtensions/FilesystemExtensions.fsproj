@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft.StringTemplate" Version="1.2.0" />
+    <PackageReference Include="OpilioCraft.StringTemplate" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>

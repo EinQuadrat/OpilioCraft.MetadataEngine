@@ -24,7 +24,7 @@ type public RepairFileDateCommand() =
         // correct file timestamps
         if metadata.Details.ContainsKey(Slot.DateTaken)
             then
-                let dateTaken = metadata.Details.["DateTaken"].AsDateTime
+                let dateTaken = metadata.Details["DateTaken"].AsDateTime
                 IO.File.SetCreationTimeUtc(path, dateTaken)
                 IO.File.SetLastWriteTimeUtc(path, dateTaken)
                 IO.File.SetLastAccessTimeUtc(path, dateTaken)

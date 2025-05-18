@@ -9,11 +9,8 @@ open System.Threading
 
 open FSharp.Data
 
-open OpilioCraft.FSharp.Prelude
-
-
 // managed exiftool result structure
-type ExifToolResult(jsonString : string) =
+type ExifToolResult(jsonString: string) =
     member val RawData = jsonString
         // IMPORTANT: exiftool delivers a json array containing a record with all tags
 
@@ -33,7 +30,7 @@ type ExifToolResult(jsonString : string) =
 
 // integration of exiftool.exe
 type ExifToolCommand =
-    | RequestMetadata of Filename:string * AsyncReplyChannel<ExifToolResult>
+    | RequestMetadata of Filename: string * AsyncReplyChannel<ExifToolResult>
     | Quit
 
 module internal ExifTool =
@@ -65,7 +62,7 @@ module internal ExifTool =
             psi.WindowStyle <- ProcessWindowStyle.Hidden
 
             // async error handler
-            let exifErrorHandler (_ : obj) (errLine : DataReceivedEventArgs) : unit =
+            let exifErrorHandler (_: obj) (errLine: DataReceivedEventArgs) : unit =
                 if (not <| String.IsNullOrEmpty(errLine.Data)) then Console.Error.WriteLine $"[ExifTool] exiftool.exe error: {errLine.Data}"
 
             // create process instance
@@ -83,8 +80,8 @@ module internal ExifTool =
     let createExifToolHandler () = lazy MailboxProcessor<ExifToolCommand>.Start(fun inbox ->
         let exifRuntime = launchExif ()
 
-        let readResponse (processInstance : Process) =
-            let rec readLines (response : string) =
+        let readResponse (processInstance: Process) =
+            let rec readLines (response: string) =
                 match processInstance.StandardOutput.ReadLine() with
                 | "{ready}" -> response
                 | line -> readLines (response + line)
@@ -102,7 +99,7 @@ module internal ExifTool =
                         exifRuntime |> readResponse |> ExifToolResult
                     with
                     | exn ->
-                        System.Console.Error.WriteLine $"[ExifTool] error while processing request: {exn.Message}"
+                        System.Console.Error.WriteLine($"[ExifTool] error while processing request: {exn.Message}")
                         ExifToolResult.EmptyInstance
 
                     |> replyChannel.Reply
@@ -116,7 +113,7 @@ module internal ExifTool =
                         exifRuntime.WaitForExit()
                         exifArgsFile |> File.Delete
                     with
-                    | exn -> System.Console.Error.WriteLine $"[ExifTool] error while terminating processing instance: {exn.Message}"
+                    | exn -> System.Console.Error.WriteLine($"[ExifTool] error while terminating processing instance: {exn.Message}")
                     
                     return ()
             }
@@ -126,7 +123,7 @@ module internal ExifTool =
 
 [<Sealed>]
 type ExifTool() =
-    inherit DisposableBase ()
+    inherit OpilioCraft.FSharp.DisposableBase()
 
     static let _refCounter = ref 0
     static let mutable _exifHandler = None
@@ -146,22 +143,22 @@ type ExifTool() =
     static member Proxy() = new ExifTool()
 
     // public API
-    member _.RequestMetadata filename =
+    member _.RequestMetadata(filename) =
         ExifTool.Mailbox.PostAndReply(fun reply -> RequestMetadata(filename, reply))
 
 
     // cleanup resources
-    override _.DisposeManagedResources () =
+    override _.DisposeManagedResources() =
         if _exifHandler.IsSome
         then
-            if Interlocked.Decrement _refCounter < 1
+            if Interlocked.Decrement(_refCounter) < 1
             then
                 ExifTool.Mailbox.Post(Quit)
                 _exifHandler <- None
 
 module ExifToolHelper =
     // helper
-    let private toUpperFirst (stringValue : string) =
+    let private toUpperFirst (stringValue: string) =
         if String.IsNullOrEmpty(stringValue)
         then
             String.Empty
@@ -172,9 +169,9 @@ module ExifToolHelper =
     
     // simplify dealing with Exif structure
     let asString = function | JsonValue.String x -> x | x -> x.ToString()
-    let asTrimString = asString >> Text.trim
+    let asTrimString = asString >> OpilioCraft.FSharp.Text.trim
 
-    let tryAsDateTime (jvalue : JsonValue) =
+    let tryAsDateTime (jvalue: JsonValue) =
         try
             if jvalue = JsonValue.Null || String.IsNullOrEmpty(jvalue.AsString()) || jvalue.AsString().Equals("0000:00:00 00:00:00")
             then
@@ -182,11 +179,11 @@ module ExifToolHelper =
             else
                 jvalue.AsDateTime(CultureInfo.InvariantCulture) |> Some
         with
-            | _ -> Console.Error.WriteLine $"[ExifTool] value is not DateTime compatible: {jvalue.ToString()}"; None
+            | _ -> Console.Error.WriteLine($"[ExifTool] value is not DateTime compatible: {jvalue.ToString()}"); None
 
-    let tryExtractCamera (exif : ExifToolResult) : string option =
-        let maker : string option = exif.["EXIF:Make"] |> Option.map asTrimString |> Option.map toUpperFirst // EXIF maker tag is named 'make'
-        let model : string option = exif.["EXIF:Model"] |> Option.map asTrimString
+    let tryExtractCamera (exif: ExifToolResult) : string option =
+        let maker : string option = exif["EXIF:Make"] |> Option.map asTrimString |> Option.map toUpperFirst // EXIF maker tag is named 'make'
+        let model : string option = exif["EXIF:Model"] |> Option.map asTrimString
 
         match maker, model with
         | None, None -> None
@@ -195,8 +192,8 @@ module ExifToolHelper =
         | Some maker, Some model -> Some <| (if (model.StartsWith(maker)) then model else $"{maker} {model}")
 
     // simplify metadata extraction
-    let getMetadata (fi : FileInfo) : ExifToolResult option =
+    let getMetadata (fi: FileInfo) : ExifToolResult option =
         try
-            using (ExifTool.Proxy()) ( fun exifTool -> exifTool.RequestMetadata fi.FullName |> Some )
+            using (ExifTool.Proxy()) (fun exifTool -> exifTool.RequestMetadata fi.FullName |> Some)
         with
-            | exn -> System.Console.Error.WriteLine $"[ExifTool] cannot process request: {exn.Message}"; None
+            | exn -> System.Console.Error.WriteLine($"[ExifTool] cannot process request: {exn.Message}"); None

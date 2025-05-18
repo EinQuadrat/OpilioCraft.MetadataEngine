@@ -3,7 +3,7 @@
 open System
 open System.Management.Automation
 
-open OpilioCraft.FSharp.Prelude
+open OpilioCraft.FSharp.FlexibleValues
 open OpilioCraft.FSharp.PowerShell.CmdletExtension
 open OpilioCraft.Lisp
 

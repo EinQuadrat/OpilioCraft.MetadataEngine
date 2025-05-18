@@ -5,8 +5,9 @@ open System.IO
 
 open FSharp.Data
 
-open OpilioCraft.FSharp.Prelude
-open OpilioCraft.FSharp.Prelude.ActivePatterns
+open OpilioCraft.FSharp
+open OpilioCraft.FSharp.FlexibleValues
+open OpilioCraft.FSharp.ActivePatterns
 
 
 [<RequireQualifiedAccess>]
@@ -15,13 +16,13 @@ module MetadataEngine =
     let private ResourceExifTool = "ExifTool"
 
     // managed resources
-    let mutable private usedResources   : Map<string, IDisposable> = Map.empty
+    let mutable private usedResources : Map<string, IDisposable> = Map.empty
 
     // resource management
     let preloadExifTool () =
         if not <| usedResources.ContainsKey(ResourceExifTool)
         then
-            usedResources <- usedResources |> Map.add ResourceExifTool (ExifTool.Proxy ())
+            usedResources <- usedResources |> Map.add ResourceExifTool (ExifTool.Proxy())
 
     let freeResources () =
         usedResources |> Map.iter (fun _ disposable -> disposable.Dispose())
@@ -29,8 +30,8 @@ module MetadataEngine =
 
     // --------------------------------------------------------------------------------------------
 
-    let private transformExifResult (exif : ExifToolResult) : Map<string, FlexibleValue> =
-        let transformJsonValue (nameAsHint : string) jsonValue : FlexibleValue =
+    let private transformExifResult (exif: ExifToolResult) : Map<string, FlexibleValue> =
+        let transformJsonValue (nameAsHint: string) jsonValue : FlexibleValue =
             match jsonValue with
             | JsonValue.Boolean x -> FlexibleValue.Boolean x
             | JsonValue.Number x -> FlexibleValue.Decimal x
@@ -60,7 +61,7 @@ module MetadataEngine =
     
     // --------------------------------------------------------------------------------------------
 
-    let identifyFile (fi : FileInfo) =
+    let identifyFile (fi: FileInfo) =
         {
             FileInfo = fi
             AsOf = fi.LastWriteTimeUtc
@@ -107,7 +108,7 @@ module MetadataEngine =
     
     // --------------------------------------------------------------------------------------------
 
-    let extractMetadata (filePath : string) : Metadata =
+    let extractMetadata (filePath: string) : Metadata =
         let fid = filePath |> FileInfo |> identifyFile
         let contentType = fid.FileInfo |> determineContentType
 
@@ -124,7 +125,7 @@ module MetadataEngine =
         metadata.Details.Add(key, FlexibleValue.Wrap <| value)
         metadata
 
-    let addDetailIfMissing key (valueProvider : Metadata -> _) metadata =
+    let addDetailIfMissing key (valueProvider: Metadata -> _) metadata =
         metadata |>
             if not <| metadata.Details.ContainsKey(key)
             then

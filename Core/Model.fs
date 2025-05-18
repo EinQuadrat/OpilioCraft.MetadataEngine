@@ -2,7 +2,8 @@
 
 open System
 open System.Text.Json.Serialization
-open OpilioCraft.FSharp.Prelude
+
+open OpilioCraft.FSharp.FlexibleValues
 
 // exceptions
 exception MetadataEngineException of ErrorMsg : string
@@ -13,13 +14,13 @@ type FileIdentificator =
     {
         FileInfo    : IO.FileInfo
         AsOf        : DateTime
-        Fingerprint : Fingerprint
+        Fingerprint : string
     }
 
 // metadata itself
 type Metadata =
     {
-        Id          : Fingerprint // SHA256 hash
+        Id          : string // SHA256 hash
         AsOf        : DateTime // as UTC timestamp
         ContentType : ContentType
         Details     : ContentDetails
@@ -28,7 +29,7 @@ type Metadata =
     [<JsonIgnore>]
     member x.AsOfLocal = x.AsOf.ToLocalTime()
 
-    member x.TryGetDetail key =
+    member x.TryGetDetail(key) =
         x.Details.TryGetValue(key)
         |> function
             | true, v    -> Some v
@@ -49,4 +50,4 @@ and ContentCategory =
     | Digitalized = 3 // digitalized former analogue stuff
 
 // content type specific metadata
-and ContentDetails= Collections.Generic.Dictionary<string,FlexibleValue>
+and ContentDetails = Collections.Generic.Dictionary<string, FlexibleValue>

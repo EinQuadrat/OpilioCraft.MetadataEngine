@@ -3,7 +3,7 @@
 open System
 open System.Management.Automation
 
-open OpilioCraft.FSharp.Prelude
+open OpilioCraft.FSharp.Fingerprint
 open OpilioCraft.FSharp.PowerShell
 open OpilioCraft.FSharp.PowerShell.CmdletExtension
 open OpilioCraft.MetadataEngine
@@ -47,7 +47,7 @@ type public NewFilenameCommand() =
         // construct new filename
         String.concat "" <| [
             (applyPattern metadata)
-            (if x.IncludeFingerprint.IsPresent then Fingerprint.FingerprintSeparator + metadata.Id else String.Empty)
+            (if x.IncludeFingerprint.IsPresent then FingerprintSeparator + metadata.Id else String.Empty)
             metadata.ContentType.FileExtension
         ]
 
