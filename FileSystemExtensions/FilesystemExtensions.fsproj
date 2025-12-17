@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 
     <Description>Additional filesystem related metadata functions.</Description>
   </PropertyGroup>
@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft.StringTemplate" Version="2.0.1" />
+    <PackageReference Include="OpilioCraft.StringTemplate" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.300" />
+    <PackageReference Update="FSharp.Core" Version="10.0.101" />
   </ItemGroup>
 
 </Project>

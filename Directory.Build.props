@@ -6,7 +6,7 @@
 
   <PropertyGroup>
 
-    <VersionPrefix>2.2.1</VersionPrefix>
+    <VersionPrefix>2.3.0</VersionPrefix>
       
     <Authors>Carsten Schäfer</Authors>
     <Copyright>Copyright (c) 2023-2025 by Carsten Schäfer</Copyright>

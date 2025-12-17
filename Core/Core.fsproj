@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 
     <Description>Provides functionality to work with metadata, e.g. can extract EXIF information.</Description>
 
@@ -20,12 +20,12 @@
 
   <ItemGroup>
     <PackageReference Include="FSharp.Data.Json.Core" Version="6.6.0" />
-    <PackageReference Include="OpilioCraft" Version="1.0.0" />
-    <PackageReference Include="OpilioCraft.FSharp" Version="10.0.2" />
+    <PackageReference Include="OpilioCraft" Version="1.1.1" />
+    <PackageReference Include="OpilioCraft.FSharp" Version="10.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.300" />
+    <PackageReference Update="FSharp.Core" Version="10.0.101" />
   </ItemGroup>
 
 </Project>
