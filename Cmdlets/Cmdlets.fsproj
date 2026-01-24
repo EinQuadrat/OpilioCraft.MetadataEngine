@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
 
     <Description>Provides PowerShell cmdlets to work with metadata.</Description>
 
@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpilioCraft.FSharp.PowerShell" Version="4.1.0" />
-    <PackageReference Include="PowerShellStandard.Library" Version="5.1.1" />
+    <PackageReference Include="OpilioCraft.FSharp.PowerShell" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>

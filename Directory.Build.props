@@ -6,10 +6,10 @@
 
   <PropertyGroup>
 
-    <VersionPrefix>2.4.0</VersionPrefix>
+    <VersionPrefix>2.4.1</VersionPrefix>
       
     <Authors>Carsten Schäfer</Authors>
-    <Copyright>Copyright (c) 2023-2025 by Carsten Schäfer</Copyright>
+    <Copyright>Copyright (c) 2023-2026 by Carsten Schäfer</Copyright>
     <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.MetadataEngine.git</RepositoryUrl>
     <PackageTags>OpilioCraft;MetadataEngine;FSharp</PackageTags>
 
